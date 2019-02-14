@@ -2,6 +2,7 @@ package com.synechron.utils;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -59,12 +60,78 @@ public class DriverUtils
 		return driver;
 	}
 	
+	
+	public static WebElement getMyElement(WebDriver driver, String locator, String locatorValue)
+	{
+		System.out.println("Finding element using " + locator + " and " + locatorValue);
+		WebElement ele = null;
+		switch(locator)
+		{
+		case "id" :
+				ele = driver.findElement(By.id(locatorValue));
+				break;
+		case "name" :
+			ele = driver.findElement(By.name(locatorValue));
+			break;
+
+		case "classname" :
+			ele = driver.findElement(By.className(locatorValue));
+			break;
+
+		case "tagname" :
+			ele = driver.findElement(By.tagName(locatorValue));
+			break;
+
+		case "linktext" :
+			ele = driver.findElement(By.linkText(locatorValue));
+			break;
+
+		case "partiallinktext" :
+			ele = driver.findElement(By.partialLinkText(locatorValue));
+			break;
+
+		case "css" :
+			ele = driver.findElement(By.cssSelector(locatorValue));
+			break;
+
+		case "xpath" :
+			ele = driver.findElement(By.xpath(locatorValue));
+			break;
+
+		default :
+				System.out.println("Please pass valid locator...");
+		
+		}
+		return ele;
+	}
+	
+	public static void checkEnabledAndClick(WebElement link) {
+		//WebElement link  =  getMyElement(driver, locator, locatorValue);
+		if(link.isDisplayed())
+		{
+			System.out.println("Element is displayed ");
+			if(link.isEnabled())
+			{
+				System.out.println("Element is Enabled and can Perform Action");
+				link.click();
+			}
+			else
+			{
+				System.out.println("Element is not Enabled so ACTION CAN'T BE DONE...");
+			}
+		}
+		else
+		{
+			System.out.println("element is not displayed");
+		}
+	}
 	/**
 	 * @author ahb
 	 * @param link - PASS WEBELEMENT ON WHICH YOU WANT TO 
 	 * PERFORM VALIDATION AND THEN CLICK ACTION
 	 */
-	public static void checkEnabledAndClick(WebElement link) {
+	public static void checkEnabledAndClick(WebDriver driver, String locator, String locatorValue) {
+		WebElement link  =  getMyElement(driver, locator, locatorValue);
 		if(link.isDisplayed())
 		{
 			System.out.println("Element is displayed ");
@@ -108,6 +175,27 @@ public class DriverUtils
 		}
 	}
 	
+	
+	public static void checkEnabledAndType(WebDriver driver,String locator,String locatorValue,String text) {
+		WebElement link =  getMyElement(driver, locator, locatorValue);
+		if(link.isDisplayed())
+		{
+			System.out.println("Element is displayed ");
+			if(link.isEnabled())
+			{
+				System.out.println("Element is Enabled and can Perform Action");
+				link.sendKeys(text);
+			}
+			else
+			{
+				System.out.println("Element is not Enabled so ACTION CAN'T BE DONE...");
+			}
+		}
+		else
+		{
+			System.out.println("element is not displayed");
+		}
+	}
 	public static void selectCheckBox(WebElement checkBoxEle) {
 		if(checkBoxEle.isDisplayed() && checkBoxEle.isEnabled())
 		{

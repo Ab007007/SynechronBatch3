@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ActitimeUtils
+public class ActitimeUtils extends DriverUtils
 {
 	
 	public static void launchApp(WebDriver driver, String url)
