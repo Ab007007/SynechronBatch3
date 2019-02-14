@@ -21,9 +21,9 @@ public class FluentWaitDemo
 		
 		FluentWait<WebElement> wait  = 
 				new FluentWait<WebElement>(driver.findElement(By.id("counter")))
-				.withTimeout(Duration.ofSeconds(10)).pollingEvery(Duration.ofMillis(100))
-				.ignoring(NoSuchElementException.class)
-				.ignoring(Exception.class);
+				.withTimeout(Duration.ofSeconds(20))
+				.pollingEvery(Duration.ofMillis(500))
+				.ignoring(NoSuchElementException.class);
 		
 		Function<WebElement, Boolean> fun = new Function<WebElement, Boolean>() {
 
@@ -31,6 +31,8 @@ public class FluentWaitDemo
 			public Boolean apply(WebElement myele) {
 				String text =null;
 				text = myele.getText();
+				
+				System.out.println(text);
 				if(!(text.equals("NaN")))
 				{
 					System.out.println(" Waiting for Element to change the status...");
@@ -45,20 +47,6 @@ public class FluentWaitDemo
 		};
 	
 		wait.until(fun);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	}
 

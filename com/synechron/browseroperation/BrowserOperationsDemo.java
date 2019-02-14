@@ -18,6 +18,10 @@ public class BrowserOperationsDemo
 		driver.navigate().forward();
 		Thread.sleep(2000);
 		driver.navigate().refresh();
+		Thread.sleep(2000);
+		driver.navigate().to("http://www.google.com");
+		Thread.sleep(2000);
+		System.out.println(driver.getCurrentUrl());
 		driver.close();
 		System.out.println("Main Ended....");
 		
