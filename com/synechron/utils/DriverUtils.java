@@ -1,13 +1,20 @@
 package com.synechron.utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.Assert;
 
 public class DriverUtils 
 {
@@ -215,4 +222,44 @@ public class DriverUtils
 			System.out.println("check box is either not displayed or enabled ");
 		}
 	}
+	
+	public static void validateTitle(WebDriver driver, String expectedTitle)
+	{
+		System.out.println("Validating the title " + expectedTitle);
+		String actualTitle = driver.getTitle();
+		Assert.assertEquals(actualTitle, expectedTitle);
+	}
+	
+	public static void getScreenShot()
+	{
+		Date d  = new Date();
+		String dyName = d.toString().replaceAll(" ", "_").replaceAll(":", "_");
+		TakesScreenshot ss = (TakesScreenshot)driver;
+		File sourceFile = ss.getScreenshotAs
+				(OutputType.FILE);
+		try {
+			FileUtils.copyFile(sourceFile, new File
+					("screenshots//SS_"+dyName + ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

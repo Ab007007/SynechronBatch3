@@ -1,5 +1,7 @@
 package com.synechron.utils;
 
+import java.sql.Driver;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +14,9 @@ public class ActitimeUtils extends DriverUtils
 	{
 		System.out.println("Launching the App " + url);
 		driver.get(url);
+		DriverUtils.validateTitle(driver, "actiTIME - Login");
+		
+		
 	}
 	
 	
@@ -27,18 +32,21 @@ public class ActitimeUtils extends DriverUtils
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		DriverUtils.validateTitle(driver, "actiTIME - Enter Time-Track");
 	}
 
 	public static void selectModule(WebDriver driver, String name)
 	{
 		System.out.println("Selecting module");
 		driver.findElement(By.linkText(name.toUpperCase())).click();
+		//DriverUtils.validateTitle(driver, expectedTitle);
 	}
 
 	public static void logout(WebDriver driver)
 	{
 		System.out.println("Logout of app");
 		driver.findElement(By.id("logoutLink")).click();
+		DriverUtils.validateTitle(driver, "actiTIME - Login");
 	}
 
 	public static void CreateCustomer(WebDriver driver,String cn,String cd) {
