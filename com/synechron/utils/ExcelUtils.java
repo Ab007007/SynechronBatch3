@@ -12,33 +12,35 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelUtils {
-	public static void main(String[] args) throws EncryptedDocumentException, IOException {
-
-		File f = new File("data//TestData.xls");
-		FileInputStream fis = new FileInputStream(f);
-
-		Workbook wb = WorkbookFactory.create(fis);
-
-		System.out.println("Total sheets -" + wb.getNumberOfSheets());
-
-		for (int i = 0; i < wb.getNumberOfSheets(); i++) {
-			System.out.println(wb.getSheetName(i));
+	public static int getRowCount(String sheetName)
+	{
+		File f = null;
+		FileInputStream fis = null;
+		Workbook wb = null;
+		int rowCount=0;
+		try
+		{
+			f = new File("data//TestData.xls");
+			fis = new FileInputStream(f);
+			wb = WorkbookFactory.create(fis);
+			rowCount = wb.getSheet(sheetName).getLastRowNum()+1;
 		}
-
-		Sheet sh = wb.getSheet("createcustomer");
-		for (int j = 0; j <= sh.getLastRowNum(); j++) {
-			Row row = sh.getRow(j);
-			Cell cell1 = row.getCell(0);
-			Cell cell2 = row.getCell(1);
-			System.out.println(cell1.getCellType());
-			// System.out.println(cell1.getStringCellValue() + " | " +
-			// cell2.getStringCellValue() );
-
+		catch(Exception ex)
+		{
+			System.out.println("exception while reading excel file..");
 		}
-
-		fis.close();
+		finally
+		{
+			try {
+				fis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return rowCount;
 	}
-
 	public static String  getMyCellData(String sheet, int rownum, int column) {
 		File f = null;
 		FileInputStream fis = null;
